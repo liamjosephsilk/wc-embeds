@@ -6,6 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface EmbedSpotify {
+        "height": string;
+        "spotifylink": string;
+        "width": string;
+    }
     interface EmbedYoutube {
         "height": string;
         "width": string;
@@ -13,6 +18,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLEmbedSpotifyElement extends Components.EmbedSpotify, HTMLStencilElement {
+    }
+    var HTMLEmbedSpotifyElement: {
+        prototype: HTMLEmbedSpotifyElement;
+        new (): HTMLEmbedSpotifyElement;
+    };
     interface HTMLEmbedYoutubeElement extends Components.EmbedYoutube, HTMLStencilElement {
     }
     var HTMLEmbedYoutubeElement: {
@@ -20,16 +31,23 @@ declare global {
         new (): HTMLEmbedYoutubeElement;
     };
     interface HTMLElementTagNameMap {
+        "embed-spotify": HTMLEmbedSpotifyElement;
         "embed-youtube": HTMLEmbedYoutubeElement;
     }
 }
 declare namespace LocalJSX {
+    interface EmbedSpotify {
+        "height"?: string;
+        "spotifylink"?: string;
+        "width"?: string;
+    }
     interface EmbedYoutube {
         "height"?: string;
         "width"?: string;
         "youtubeid"?: string;
     }
     interface IntrinsicElements {
+        "embed-spotify": EmbedSpotify;
         "embed-youtube": EmbedYoutube;
     }
 }
@@ -37,6 +55,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "embed-spotify": LocalJSX.EmbedSpotify & JSXBase.HTMLAttributes<HTMLEmbedSpotifyElement>;
             "embed-youtube": LocalJSX.EmbedYoutube & JSXBase.HTMLAttributes<HTMLEmbedYoutubeElement>;
         }
     }
