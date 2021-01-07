@@ -6,6 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface EmbedCodesandbox {
+        "codesanboxid": string;
+    }
     interface EmbedSpotify {
         "height": string;
         "spotifylink": string;
@@ -18,6 +21,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLEmbedCodesandboxElement extends Components.EmbedCodesandbox, HTMLStencilElement {
+    }
+    var HTMLEmbedCodesandboxElement: {
+        prototype: HTMLEmbedCodesandboxElement;
+        new (): HTMLEmbedCodesandboxElement;
+    };
     interface HTMLEmbedSpotifyElement extends Components.EmbedSpotify, HTMLStencilElement {
     }
     var HTMLEmbedSpotifyElement: {
@@ -31,11 +40,15 @@ declare global {
         new (): HTMLEmbedYoutubeElement;
     };
     interface HTMLElementTagNameMap {
+        "embed-codesandbox": HTMLEmbedCodesandboxElement;
         "embed-spotify": HTMLEmbedSpotifyElement;
         "embed-youtube": HTMLEmbedYoutubeElement;
     }
 }
 declare namespace LocalJSX {
+    interface EmbedCodesandbox {
+        "codesanboxid"?: string;
+    }
     interface EmbedSpotify {
         "height"?: string;
         "spotifylink"?: string;
@@ -47,6 +60,7 @@ declare namespace LocalJSX {
         "youtubeid"?: string;
     }
     interface IntrinsicElements {
+        "embed-codesandbox": EmbedCodesandbox;
         "embed-spotify": EmbedSpotify;
         "embed-youtube": EmbedYoutube;
     }
@@ -55,6 +69,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "embed-codesandbox": LocalJSX.EmbedCodesandbox & JSXBase.HTMLAttributes<HTMLEmbedCodesandboxElement>;
             "embed-spotify": LocalJSX.EmbedSpotify & JSXBase.HTMLAttributes<HTMLEmbedSpotifyElement>;
             "embed-youtube": LocalJSX.EmbedYoutube & JSXBase.HTMLAttributes<HTMLEmbedYoutubeElement>;
         }
